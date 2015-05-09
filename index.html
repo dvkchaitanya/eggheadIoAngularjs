@@ -1,0 +1,74 @@
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+</head>
+<body>
+<div ng-app="invoice1" ng-controller="InvoiceController as invoice">
+	<b>Invoice:</b>
+	Quantity: <input type="number" ng-model="invoice.qty">
+	Costs: <input type="number" ng-model="invoice.price">
+	<select ng-model="invoice.inCurr">
+		<option ng-repeat="c in invoice.currencies">{{c}}</option>
+	</select>
+	<br>
+	Total: 
+	<span ng-repeat="c in invoice.currencies">
+		{{ invoice.total(c)|currency:c }}<br>
+	</span>
+
+</div>
+<div ng-app="parChild" id="dotExplanationDiv">
+	<input type="text" ng-model="parent.child">
+
+	<div id="firstDiv" ng-controller="parentChildController">
+		<input type="number" ng-model=parent.child>
+		{{parent.child}}
+	</div>
+	<div id="secondDiv" ng-controller="parentChildController1">
+		<input type="number" ng-model=parent.child>
+		{{parent.child}}
+	</div>
+</div>
+<div id="datasharingUsingServiceDiv" ng-app="appWithService">
+	<div ng-controller="FirstController"> 
+		{{data.message}}
+	</div>
+	<div ng-controller="SecondController">
+		{{reversedMessage(data.message)}}
+		<h1>{{data.message|reverse}}</h1>
+
+	</div>
+</div>
+<div id="ngFilterWithNgRepeatDiv" ng-app="ngFilterApp" ng-controller="AvengerCntrl">
+	<table>	
+		<input type="text" ng-model="searchText.name">
+		<tr ng-repeat="avenger in avengers.cast|filter:searchText">
+			<td>{{ avenger.name }} </td>
+			<td>{{ avenger.character }} </td>
+		</tr>
+	</table>	<!-- {{avengers}} -->
+</div>
+<div id="ngDirectiveDiv" ng-app="ngDirectiveApp">
+	<samplediv></samplediv>
+	<div anothersamplediv lastsamplediv></div>
+	<!-- <div enter="chaitu" leave>hello hover on me</div> -->
+</div>
+<div id="rollMoreTweetsDiv" ng-app="dirTalkWithControlApp" ng-controller="dirTalkWithControlAppCntrl">
+	<div entertalk="loadMoreTweets()" > roll over this div to load more tweets</div>
+	<div entertalk="deleteMoreTweets()" > roll over this div to delete  more tweets</div>
+</div>
+<div id="dirToDirDiv" ng-app="dirToDirApp">
+	<superherodir strength flight speed>observe how directives communicate each other</superherodir>    
+	<br>
+	
+	<superherodir strength> again observe how directives communicate each other</superherodir>
+</div>
+<script type="text/javascript" src="invoice1.js"> </script>
+<script type="text/javascript" src="parChild.js"> </script>
+<script type="text/javascript" src="dataSharingWithService.js"> </script>
+<script type="text/javascript" src="ngFilterDemo.js"> </script>
+<!-- <script type="text/javascript" src="ngDirectiveDemo.js"> </script> -->
+<script type="text/javascript" src="dirTalkController.js"> </script>
+<script type="text/javascript" src="dirToDirective.js"> </script>
+</body>
+</html>
